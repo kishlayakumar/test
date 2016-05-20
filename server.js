@@ -1,17 +1,17 @@
 var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 var controller = require('./routes/controller/controller')
-
+mongoose.connect('mongodb://localhost:27017/mean-demo');
+var app = express();
 app.use(bodyParser()); 
 
 function indexRequest(request, response) {
-	response.sendfile(__dirname + '/client/views/index.html')
+	response.sendFile(__dirname + '/client/view/index.html')
 }
 app.get('/',indexRequest);
-app.use('js', express.static(__dirname + 'client/js'));
+app.use('/js', express.static(__dirname + '/client/js'));
+app.get('/api/names', controller.list);
 app.post('/api/names', controller.create);
 
 
