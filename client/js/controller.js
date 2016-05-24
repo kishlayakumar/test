@@ -1,18 +1,19 @@
 app.controller('meetupsController', ['$scope',  '$resource', 
 	function($scope, $resource){
-	var Meetup = $resource('/api/names');
-  Meetup.query(function (results) {
-    $scope.meetups = results;
+	var CostTable = $resource('/api/price');
+  CostTable.query(function (results) {
+  $scope.pricelist = results;
   });
 
-  $scope.meetups = []
+  $scope.pricelist = []
 
-  $scope.createMeetup = function () {
-    var meetup = new Meetup();
-    meetup.name = $scope.meetupName;
-    meetup.$save(function (result) {
-      $scope.meetups.push(result);
-      $scope.meetupName = '';
+  $scope.createPrice = function () {
+    var price = new CostTable();
+    price.cost = $scope.priceBox;
+    price.id = "CTVFTB1"
+    price.$save(function (result) {
+      $scope.pricelist.push(result);
+      $scope.priceBox = '';
     });
   }
 }]);

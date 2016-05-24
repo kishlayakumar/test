@@ -1,8 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var controller = require('./routes/controller/controller')
-mongoose.connect('mongodb://localhost:27017/mean-demo');
+var priceController = require('./routes/controller/price');
+mongoose.connect('mongodb://localhost:27017/aamantran');
 var app = express();
 app.use(bodyParser()); 
 
@@ -11,8 +11,9 @@ function indexRequest(request, response) {
 }
 app.get('/',indexRequest);
 app.use('/js', express.static(__dirname + '/client/js'));
-app.get('/api/names', controller.list);
-app.post('/api/names', controller.create);
+app.get('/api/price', priceController.list);
+app.post('/api/price', priceController.create);
+
 
 
 app.listen(3000, function(){
